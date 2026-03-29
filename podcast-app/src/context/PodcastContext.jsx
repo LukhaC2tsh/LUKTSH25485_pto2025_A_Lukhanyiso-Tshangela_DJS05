@@ -134,6 +134,8 @@ export function PodcastProvider({ children, initialPodcasts }) {
   };
 
   return (
-    <PodcastContext.Provider value={value}>{children}</PodcastContext.Provider>
+    <PodcastProvider initialPodcasts={[]}>
+  <App />
+</PodcastProvider>
   );
 }
