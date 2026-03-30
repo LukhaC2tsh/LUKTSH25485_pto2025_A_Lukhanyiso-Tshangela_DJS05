@@ -3,7 +3,10 @@ import { PodcastContext } from "../context/PodcastContext";
 import styles from "./GenreFilter.module.css";
 
 /**
- * @param {{genres: {id:number,name:string}[]}} props – list of genres from data.
+ * Genre dropdown filter component.
+ *
+ * @param {Object} props
+ * @param {{id:number,name?:string,title?:string}[]} props.genres
  */
 export default function GenreFilter({ genres }) {
   const { genre, setGenre } = useContext(PodcastContext);
@@ -17,7 +20,7 @@ export default function GenreFilter({ genres }) {
       <option value="all">All Genres</option>
       {genres.map((g) => (
         <option key={g.id} value={g.id}>
-          {g.title}
+          {g.name || g.title}
         </option>
       ))}
     </select>

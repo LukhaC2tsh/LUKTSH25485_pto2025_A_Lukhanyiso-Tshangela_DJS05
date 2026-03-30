@@ -1,19 +1,22 @@
-import { useState, useEffect, useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 import { PodcastContext } from "../context/PodcastContext";
 import styles from "./SearchBar.module.css";
 
 /**
- * Search input with debounced update.
+ * Debounced search input for filtering podcasts.
  */
 export default function SearchBar() {
   const { search, setSearch } = useContext(PodcastContext);
   const [value, setValue] = useState(search);
 
-  // Debounce input (300ms) to avoid rapid updates.
+  useEffect(() => {
+    setValue(search);
+  }, [search]);
+
   useEffect(() => {
     const id = setTimeout(() => setSearch(value), 300);
     return () => clearTimeout(id);
-  }, [value]);
+  }, [value, setSearch]);
 
   return (
     <input

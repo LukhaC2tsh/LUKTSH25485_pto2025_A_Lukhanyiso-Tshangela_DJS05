@@ -1,6 +1,8 @@
 .select {
-  padding: 0.5rem 0.75rem;
-  border: 1px solid #ccc;
-  border-radius: 0.75rem;
+  padding: 0.6rem 0.8rem;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: white;
   font-size: 1rem;
+  min-width: 160px;
 }

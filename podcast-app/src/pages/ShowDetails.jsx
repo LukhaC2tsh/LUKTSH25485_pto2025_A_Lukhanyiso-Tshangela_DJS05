@@ -1,20 +1,13 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { formatDate } from "../utils/formatDate";
 import Season from "../components/Season";
+import { formatDate } from "../utils/formatDate";
+import styles from "./ShowDetails.module.css";
 
-const GENRES = {
-  1: "Personal Growth",
-  2: "Investigative Journalism",
-  3: "History",
-  4: "Comedy",
-  5: "Entertainment",
-  6: "Business",
-  7: "Fiction",
-  8: "News",
-  9: "Kids and Family",
-};
-
+/**
+ * ShowDetails page
+ * Fetches and displays full podcast show details using route ID.
+ */
 export default function ShowDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -32,7 +25,7 @@ export default function ShowDetails() {
           `https://podcast-api.netlify.app/id/${id}`
         );
 
-        if (!res.ok) throw new Error("Failed to load show");
+        if (!res.ok) throw new Error("Failed to fetch show");
 
         const data = await res.json();
         setShow(data);
@@ -46,72 +39,56 @@ export default function ShowDetails() {
     fetchShow();
   }, [id]);
 
-  // Loading state
-  if (loading)
-    return (
-      <div style={{ padding: "2rem" }}>
-        <p>Loading show details...</p>
-      </div>
-    );
+  if (loading) {
+    return <p className={styles.container}>Loading show...</p>;
+  }
 
-  // Error state
-  if (error)
-    return (
-      <div style={{ padding: "2rem", color: "red" }}>
-        <p>Something went wrong: {error}</p>
-      </div>
-    );
+  if (error) {
+    return <p className={styles.container}>Error: {error}</p>;
+  }
 
-  // Empty state
-  if (!show)
-    return (
-      <div style={{ padding: "2rem" }}>
-        <p>Show not found.</p>
-      </div>
-    );
+  if (!show) {
+    return <p className={styles.container}>No show found</p>;
+  }
+
+  const genres = show.genres || [];
 
   return (
-    <div style={{ padding: "1rem" }}>
-      {/* Back button */}
-      <button onClick={() => navigate("/")}>← Back</button>
+    <div className={styles.container}>
+      <button
+        className={styles.backButton}
+        onClick={() => navigate(-1)}
+      >
+        ← Back
+      </button>
 
-      {/* Title */}
-      <h1>{show.title}</h1>
+      <h1 className={styles.title}>{show.title}</h1>
 
-      {/* Image */}
       <img
+        className={styles.image}
         src={show.image}
         alt={show.title}
-        style={{ width: "100%", maxWidth: "400px" }}
       />
 
-      {/* Description */}
-      <p>{show.description}</p>
-
-      {/* Last updated */}
-      <p>
-        Last updated: {formatDate(show.updated)}
+      <p className={styles.description}>
+        {show.description}
       </p>
 
-      {/* Genres */}
-      <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
-        {show.genres.map((g) => (
-          <span
-            key={g}
-            style={{
-              background: "#eee",
-              padding: "0.3rem 0.6rem",
-              borderRadius: "6px",
-              fontSize: "0.8rem",
-            }}
-          >
-            {GENRES[g] || "Unknown"}
+      <p className={styles.updated}>
+        <strong>Updated:</strong> {formatDate(show.updated)}
+      </p>
+
+      <div className={styles.genreTags}>
+        {genres.map((g) => (
+          <span key={g} className={styles.genre}>
+            Genre {g}
           </span>
         ))}
       </div>
 
-      {/* Seasons */}
-      <h2 style={{ marginTop: "2rem" }}>Seasons</h2>
+      <h2 className={styles.sectionTitle}>
+        Seasons
+      </h2>
 
       {show.seasons?.map((season) => (
         <Season key={season.id} season={season} />

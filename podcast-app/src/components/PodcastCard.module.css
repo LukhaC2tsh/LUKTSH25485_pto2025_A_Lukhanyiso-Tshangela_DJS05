@@ -1,46 +1,56 @@
 .card {
-  background: white;
-  padding: 1rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  background: var(--card);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   cursor: pointer;
-  transition: transform 0.2s;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .card:hover {
-  transform: scale(1.02);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
 .card img {
   width: 100%;
-  border-radius: 6px;
+  height: 180px;
+  object-fit: cover;
 }
 
 .card h3 {
-  margin: 0.5rem 0;
+  margin: 0.5rem 1rem;
+  font-size: 1rem;
 }
 
 .card p {
-  margin: 0px;
-  font-size: 0.8rem;
-  color: var(--grey-text);
+  margin: 0 1rem;
+  font-size: 0.85rem;
+  color: var(--muted);
 }
 
 .tags {
-  margin: 0.5rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding: 0.5rem 1rem;
 }
 
 .tag {
-  background: #eee;
-  padding: 0.3rem 0.6rem;
-  margin-right: 0.5rem;
-  margin-top: 0.5rem;
-  border-radius: 4px;
-  display: inline-block;
-  font-size: 0.8rem;
+  background: #f0f2f5;
+  padding: 0.25rem 0.5rem;
+  border-radius: 8px;
+  font-size: 0.75rem;
 }
 
 .updatedText {
-  font-size: 0.8rem;
-  color: var(--grey-text);
+  padding: 0.5rem 1rem 1rem;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.seasons {
+  margin: 0 1rem;
+  font-size: 0.85rem;
+  color: var(--muted);
 }
